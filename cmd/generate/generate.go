@@ -35,8 +35,10 @@ type Schema struct {
 func main() {
 	packages := []schemagen.PackageDescriptor{
 		{"github.com/GoogleCloudPlatform/kubernetes/pkg/api", "com.openshift.client.kubernetes", "kubernetes_"},
+		{"github.com/GoogleCloudPlatform/kubernetes/pkg/api/resource", "com.openshift.client.kubernetes", "kubernetes_resource_"},
 		{"github.com/GoogleCloudPlatform/kubernetes/pkg/util", "com.openshift.client.kubernetes.util", "kubernetes_util_"},
 		{"github.com/fsouza/go-dockerclient", "com.openshift.client.dockerclient", "docker_"},
+		{"speter.net/go/exp/math/dec/inf", "com.openshift.client.util", "speter_inf_"},
 		{"github.com/openshift/origin/pkg/build/api", "com.openshift.client.openshift.build", "os_build_"},
 		{"github.com/openshift/origin/pkg/deploy/api", "com.openshift.client.openshift.deploy", "os_deploy_"},
 		{"github.com/openshift/origin/pkg/image/api", "com.openshift.client.openshift.image", "os_image_"},
