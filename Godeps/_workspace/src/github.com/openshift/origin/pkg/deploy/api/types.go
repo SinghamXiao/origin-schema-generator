@@ -13,7 +13,7 @@ type Deployment struct {
 	// Strategy describes how a deployment is executed.
 	Strategy DeploymentStrategy `json:"strategy,omitempty" yaml:"strategy,omitempty"`
 	// ControllerTemplate is the desired replication state the deployment works to materialize.
-	ControllerTemplate kapi.ReplicationControllerState `json:"controllerTemplate,omitempty" yaml:"controllerTemplate,omitempty"`
+	ControllerTemplate kapi.ReplicationControllerSpec `json:"controllerTemplate,omitempty" yaml:"controllerTemplate,omitempty"`
 	// Status is the execution status of the deployment.
 	Status DeploymentStatus `json:"status,omitempty" yaml:"status,omitempty"`
 	// Details captures the causes for the creation of this deployment resource.
@@ -75,7 +75,7 @@ type CustomDeploymentStrategyParams struct {
 type DeploymentList struct {
 	kapi.TypeMeta `json:",inline" yaml:",inline"`
 	kapi.ListMeta `json:"metadata,omitempty" yaml:"metadata,omitempty"`
-	Items         []Deployment `json:"items,omitempty" yaml:"items,omitempty"`
+	Items         []Deployment `json:"items" yaml:"items"`
 }
 
 // These constants represent annotation keys used for correlating objects related to deployments.
@@ -83,6 +83,9 @@ const (
 	DeploymentConfigAnnotation = "deploymentConfig"
 	DeploymentAnnotation       = "deployment"
 	DeploymentPodAnnotation    = "pod"
+	// TODO: This is a workaround for upstream's lack of annotation support on PodTemplate. Once
+	// annotations are available on PodTemplate, audit this constant with the goal of removing it.
+	DeploymentLabel = "deployment"
 )
 
 // These constants represent label keys used for correlating objects related to deployment.
@@ -116,7 +119,7 @@ type DeploymentTemplate struct {
 	// Strategy describes how a deployment is executed.
 	Strategy DeploymentStrategy `json:"strategy,omitempty" yaml:"strategy,omitempty"`
 	// ControllerTemplate is the desired replication state the deployment works to materialize.
-	ControllerTemplate kapi.ReplicationControllerState `json:"controllerTemplate,omitempty" yaml:"controllerTemplate,omitempty"`
+	ControllerTemplate kapi.ReplicationControllerSpec `json:"controllerTemplate,omitempty" yaml:"controllerTemplate,omitempty"`
 }
 
 // DeploymentTriggerPolicy describes a policy for a single trigger that results in a new Deployment.
@@ -179,5 +182,5 @@ type DeploymentCauseImageTrigger struct {
 type DeploymentConfigList struct {
 	kapi.TypeMeta `json:",inline" yaml:",inline"`
 	kapi.ListMeta `json:"metadata,omitempty" yaml:"metadata,omitempty"`
-	Items         []DeploymentConfig `json:"items,omitempty" yaml:"items,omitempty"`
+	Items         []DeploymentConfig `json:"items" yaml:"items"`
 }
